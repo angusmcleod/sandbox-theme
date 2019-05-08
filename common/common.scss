@@ -1,0 +1,120 @@
+.link {
+  background-image: linear-gradient(180deg,transparent 95%, $tertiary 0);
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  text-decoration: none;
+  color: $primary;
+}
+
+.animated-link {
+  font-size: 18px;
+  background-image: linear-gradient(180deg, transparent 90%, $tertiary 0);
+  background-size: 0 100%;
+  background-repeat: no-repeat;
+  text-decoration: none;
+  color: $primary;
+  transition: background-size .4s ease;
+
+  &:hover {
+    background-size: 100% 100%;
+    cursor: pointer;
+  }
+}
+
+.categories-and-latest div.column.categories, .categories-and-top div.column.categories {
+  margin-right: 0;
+}
+
+section.landing {
+  margin-top: 20px;
+  position: relative;
+
+  .first {
+    height: 500px;
+    width: 100%;
+    display: inline-block;
+    margin-bottom: 50px;
+  }
+
+  .home-image {
+    background-image: url($background);
+    background-size: contain;
+    position: absolute;
+    height: 500px;
+    width: 100%;
+    object-fit: cover;
+    z-index: -1;
+  }
+
+  .site-title {
+    font-size: 38px;
+    margin: 60px 0 20px 20px;
+    padding: 20px;
+    background-color: white;
+    display: inline-block;
+  }
+
+  .home-title {
+    font-size: 28px;
+    max-width: 60%;
+    margin: 20px 0;
+    background-color: white;
+
+    a {
+      @extend .link;
+    }
+  }
+
+  .first .home-title {
+    padding: 20px;
+    margin-left: 20px;
+  }
+
+  .home-actions {
+    margin: 30px 0;
+  }
+
+  .links {
+    margin: 0;
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+
+    li {
+      margin: 10px 0;
+      text-align: center;
+    }
+
+    a {
+      @extend .animated-link;
+    }
+
+    .image {
+      margin: 0 auto 20px auto;
+      height: 200px;
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
+
+      &.start {
+        background-image: url("/uploads/default/original/1X/f8b52d05cc098c053fa5f0258a86200bf0e26fd2.png");
+      }
+
+      &.improve {
+        background-image: url("/uploads/default/original/1X/661839f24ad5ad9d39b8894c8358a866fd4ed441.png");
+      }
+
+      &.plugins {
+        background-image: url("/uploads/default/original/1X/7283338594c9fe07434ed852a6c95aa7213ed6d9.png");
+        background-position: bottom;
+        width: 140px;
+      }
+
+      &.learn {
+        background-image: url("/uploads/default/original/1X/8bb145c70df0116951758d21d376b8ea31314a02.png");
+        background-position: bottom;
+        width: 70px;
+      }
+    }
+  }
+}

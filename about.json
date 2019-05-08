@@ -1,0 +1,11 @@
+{
+  "name": "Sandbox Theme",
+  "about_url": null,
+  "license_url": null,
+  "assets": {
+    "background": "assets/background.png"
+  },
+  "color_schemes": {
+  },
+  "component": true
+}
