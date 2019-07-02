@@ -94,7 +94,7 @@
   const store = container.lookup("service:store");
   const { ajax } = require('discourse/lib/ajax');
   const nonPluginCategories = ['public-work', 'introductions', 'meta', 'knowledge-base', 'news'];
-  const workCategory = 'software';
+  const workCategory = 'public-work/tasks';
 
   api.modifyClass('component:categories-and-latest-topics', {
     @computed('model.categories')
