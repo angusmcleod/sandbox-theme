@@ -1,0 +1,25 @@
+section.landing {
+  .first {
+    height: initial;
+    margin-bottom: 0;
+
+    .site-title {
+      margin: 0;
+      padding: 20px 10px;
+    }
+
+    .home-title {
+      margin: 0;
+      padding: 20px 10px;
+      max-width: 100%;
+    }
+  }
+
+  .links {
+    flex-direction: column;
+
+    .label {
+      font-size: 28px;
+    }
+  }
+}

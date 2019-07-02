@@ -4,6 +4,12 @@
   {{/discovery-categories}}
 </script>
 
+<script type='text/x-handlebars' data-template-name='mobile/discovery/categories'>
+  {{#discovery-categories refresh=(action "refresh")}}
+    {{component 'categories-and-latest-topics' model=model}}
+  {{/discovery-categories}}
+</script>
+
 <script type='text/x-handlebars' data-template-name='components/categories-and-latest-topics'>
   <div class='column categories'>
     <section class="landing">
@@ -13,65 +19,65 @@
           Hey, we're Pavilion.
         </div>
         <div class="home-title">
-          We <a href="#links">build online communities</a>,
-          <a href="#plugins">support open-source</a> and
-          <a href="#teach">teach people how to code</a>
+          We <a href="#links" class="animated-link">work with online communities</a>,
+          <a href="#plugins" class="animated-link">support open-source</a> and
+          <a href="#teach" class="animated-link">mentor apsiring developers</a>.
         </div>
-      </div>
-
-      <div class="home-title">
-        <a name="links" href="#links">How can we help?</a>
       </div>
 
       <div class="home-actions">
         <ul class="links">
           <li>
-            <a href="http://discourse.angusmcleod.com.au/new-message?groupname=team&title=I%20want%20to%20start%20an%20online%20community">
-              <div class="image start"></div>
-              <span>I want to start a community</span>
-            </a>
-          </li>
-          <li>
-            <a href="http://discourse.angusmcleod.com.au/new-message?groupname=team&title=I%20want%20to%20improve%20my%20community">
-              <div class="image improve"></div>
-              <span>I want to improve my community</span>
+            <a href="http://discourse.angusmcleod.com.au/new-message?groupname=team&title=Consulting%20Enquiry">
+              <img class="image start" src="{{imageUrls.balloons}}">
+              <span class="label">Hire us to work on your community</span>
             </a>
           </li>
           <li>
             <a href="#plugins">
-              <div class="image plugins"></div>
-              <span>I want to use your open source work</span>
+              <img class="image plugins" src="{{imageUrls.bike}}">
+              <span class="label">Check out our open source work</span>
             </a>
           </li>
           <li>
             <a href="#learn">
-              <div class="image learn"></div>
-              <span>I want to learn how to code</span>
+              <img class="image learn" src="{{imageUrls.guitar}}">
+              <span class="label">Learn about our mentoring</span>
             </a>
           </li>
         </ul>
       </div>
 
       <div class="landing-block">
-        <a name="clients"></a>
-        <div class="home-title">Our Clients</div>
+        <div class="home-title">
+          <a name="team" href="#team">Our Team</a>
+        </div>
+        <div class="home-profiles">
+          {{#each model.teamMembers as |tm|}}
+            <div class="home-profile">
+              <div class="avatar">
+                {{avatar tm avatarTemplatePath="avatar_template"
+                            usernamePath="username"
+                            namePath="name"
+                            imageSize="huge"}}
+              </div>
+              <div class="details">
+                <div class="name">
+                  {{tm.name}}
+                </div>
+                <div class="bio">
+                  {{tm.bio}}
+                </div>
+              </div>
+            </div>
+          {{/each}}
+        </div>
       </div>
 
       <div class="landing-block">
-        <a name="team"></a>
-        <div class="home-title">Our Team</div>
-      </div>
-
-      <div class="landing-block">
-        <a name="plugins"></a>
-        <div class="home-title">Our Projects</div>
-        {{#each filteredCategories as |c|}}
-          {{category-link c}}
-        {{/each}}
-      </div>
-
-      <div class="landing-block">
-        <label>Our Agenda</label>
+        <div class="home-title">
+          <a name="agenda" href="#agenda">Our Agenda</a>
+        </div>
         {{basic-topic-list topics=model.workTopics}}
       </div>
     </section>
@@ -86,7 +92,9 @@
   const computed = require('ember-addons/ember-computed-decorators').default;
   const container = Discourse.__container__;
   const store = container.lookup("service:store");
+  const { ajax } = require('discourse/lib/ajax');
   const nonPluginCategories = ['public-work', 'introductions', 'meta', 'knowledge-base', 'news'];
+  const workCategory = 'software';
 
   api.modifyClass('component:categories-and-latest-topics', {
     @computed('model.categories')
@@ -94,16 +102,32 @@
       return categories.filter(c => {
         return !c.read_restricted && nonPluginCategories.indexOf(c.slug) === -1;
       });
+    },
+
+    @computed()
+    imageUrls(){
+      let style = null;
+      if (window.getComputedStyle && window.getComputedStyle(document.body, '::before')) {
+        style = window.getComputedStyle(document.body, '::before');
+        style = style.content;
+      }
+      return JSON.parse(JSON.parse(style));
     }
   });
 
   api.modifyClass('route:discovery-categories', {
     afterModel(model, transition) {
-      return this.store.findFiltered("topicList", {
-        filter: `c/public-work`
-      }).then(result => {
-        model.set('workTopics', result.topics);
-      });
+      return Ember.RSVP.all([
+        this.store.findFiltered("topicList", {
+          filter: `c/${workCategory}`
+        }).then(result => {
+          model.set('workTopics', result.topics);
+        }),
+        ajax(`/groups/team/members.json`).then(result => {
+          console.log(result);
+          model.set('teamMembers', result.members)
+        })
+      ]);
     }
   });
 </script>
