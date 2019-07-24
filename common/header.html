@@ -108,4 +108,12 @@
       return JSON.parse(JSON.parse(style));
     }
   });
+  
+  api.modifyClass('route:discovery-categories', {
+    afterModel(model, transition) {
+      return ajax(`/groups/team/members.json`).then(result => {
+        model.set('teamMembers', result.members)
+      })
+    }
+  });
 </script>
