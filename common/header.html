@@ -19,9 +19,7 @@
           Hey, we're Pavilion.
         </div>
         <div class="home-title">
-          We <a href="#links" class="animated-link">work with online communities</a>,
-          <a href="#plugins" class="animated-link">support open-source</a> and
-          <a href="#teach" class="animated-link">mentor apsiring developers</a>.
+          We're a freelancer cooperative that works exclusively with <a href="#links" class="animated-link">Discourse</a>.
         </div>
       </div>
 
@@ -30,19 +28,19 @@
           <li>
             <a href="http://discourse.angusmcleod.com.au/new-message?groupname=team&title=Consulting%20Enquiry">
               <img class="image start" src="{{imageUrls.balloons}}">
-              <span class="label">Hire us to work on your community</span>
+              <span class="label">Hire us to work on your Discourse</span>
             </a>
           </li>
           <li>
-            <a href="#plugins">
+            <a href="https://discourse.angusmcleod.com.au/w/feature-request/steps/step_1">
               <img class="image plugins" src="{{imageUrls.bike}}">
-              <span class="label">Check out our open source work</span>
+              <span class="label">Ask about an open source plugin</span>
             </a>
           </li>
           <li>
             <a href="#learn">
               <img class="image learn" src="{{imageUrls.guitar}}">
-              <span class="label">Learn about our mentoring</span>
+              <span class="label">Join our cooperative</span>
             </a>
           </li>
         </ul>
@@ -73,18 +71,14 @@
           {{/each}}
         </div>
       </div>
-
+      
       <div class="landing-block">
         <div class="home-title">
-          <a name="agenda" href="#agenda">Our Agenda</a>
+          <a name="categories" href="#categories">Categories</a>
         </div>
-        {{basic-topic-list topics=model.workTopics}}
+        {{categories-boxes categories=filteredCategories}}
       </div>
     </section>
-
-    {{!--<div class='column'>
-      {{categories-topic-list topics=model.topics filter="latest" class="latest-topic-list"}}
-    </div>--}}
   </div>
 </script>
 
@@ -112,22 +106,6 @@
         style = style.content;
       }
       return JSON.parse(JSON.parse(style));
-    }
-  });
-
-  api.modifyClass('route:discovery-categories', {
-    afterModel(model, transition) {
-      return Ember.RSVP.all([
-        this.store.findFiltered("topicList", {
-          filter: `c/${workCategory}`
-        }).then(result => {
-          model.set('workTopics', result.topics);
-        }),
-        ajax(`/groups/team/members.json`).then(result => {
-          console.log(result);
-          model.set('teamMembers', result.members)
-        })
-      ]);
     }
   });
 </script>
