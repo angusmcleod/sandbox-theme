@@ -19,11 +19,11 @@
           Hey, we're Pavilion.
         </div>
         <div class="home-title">
-          We're a freelancer cooperative that works exclusively with <a href="#links" class="animated-link">Discourse</a>.
+          We're a freelancer cooperative that works exclusively with <a href="https://discourse.org" class="animated-link">Discourse</a>.
         </div>
       </div>
 
-      <div class="home-actions">
+      <div class="landing-block">
         <ul class="links">
           <li>
             <a href="http://discourse.angusmcleod.com.au/new-message?groupname=team&title=Consulting%20Enquiry">
@@ -52,29 +52,29 @@
         </div>
         <div class="home-profiles">
           {{#each model.teamMembers as |tm|}}
-            <div class="home-profile">
+            <a href="/u/{{tm.username}}" class="home-profile">
               <div class="avatar">
                 {{avatar tm avatarTemplatePath="avatar_template"
                             usernamePath="username"
                             namePath="name"
-                            imageSize="huge"}}
+                            imageSize="large"}}
               </div>
               <div class="details">
                 <div class="name">
                   {{tm.name}}
                 </div>
                 <div class="bio">
-                  {{tm.bio}}
+                  {{{tm.bio}}}
                 </div>
               </div>
-            </div>
+            </a>
           {{/each}}
         </div>
       </div>
       
       <div class="landing-block">
         <div class="home-title">
-          <a name="categories" href="#categories">Categories</a>
+          <a name="categories" href="#categories">Learn More</a>
         </div>
         {{categories-boxes categories=filteredCategories}}
       </div>
@@ -111,7 +111,8 @@
   
   api.modifyClass('route:discovery-categories', {
     afterModel(model, transition) {
-      return ajax(`/groups/team/members.json`).then(result => {
+      return ajax(`/groups/test/members.json`).then(result => {
+        console.log(result.members)
         model.set('teamMembers', result.members)
       })
     }

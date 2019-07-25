@@ -38,17 +38,23 @@ section.landing {
   position: relative;
 
   .first {
-    height: 500px;
+    height: 400px;
     width: 100%;
     display: inline-block;
-    margin-bottom: 50px;
+    margin-bottom: 30px;
+    border: 1px solid $primary;
+    
+    > .site-title, > .home-title {
+      border: 1px solid $primary;
+      border-radius: 4px;
+    }
   }
 
   .home-image {
     background-image: url($background);
     background-size: contain;
     position: absolute;
-    height: 500px;
+    height: 400px;
     width: 100%;
     object-fit: cover;
     z-index: -1;
@@ -84,18 +90,27 @@ section.landing {
 
   .home-profile {
     display: flex;
+    border: 1px solid $primary;
+    padding: 10px;
+    border-radius: 8px;
 
     .details {
-      margin-left: 20px;
+      margin-left: 10px;
 
       .name {
         font-size: 1.6em;
       }
+      
+      .bio {
+        * {
+          margin: 0;
+        }
+      }
     }
   }
 
-  .home-actions {
-    margin: 30px 0;
+  .landing-block {
+    margin-bottom: 50px;
   }
 
   .links {
