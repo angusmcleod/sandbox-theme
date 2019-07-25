@@ -45,6 +45,13 @@
           </li>
         </ul>
       </div>
+      
+      <div class="landing-block">
+        <div class="home-title">
+          <a name="categories" href="#categories">Learn More</a>
+        </div>
+        {{categories-boxes categories=filteredCategories}}
+      </div>
 
       <div class="landing-block">
         <div class="home-title">
@@ -70,13 +77,6 @@
             </a>
           {{/each}}
         </div>
-      </div>
-      
-      <div class="landing-block">
-        <div class="home-title">
-          <a name="categories" href="#categories">Learn More</a>
-        </div>
-        {{categories-boxes categories=filteredCategories}}
       </div>
     </section>
   </div>
