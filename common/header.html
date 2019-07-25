@@ -111,7 +111,7 @@
   
   api.modifyClass('route:discovery-categories', {
     afterModel(model, transition) {
-      return ajax(`/groups/test/members.json`).then(result => {
+      return ajax(`/groups/team/members.json`).then(result => {
         console.log(result.members)
         model.set('teamMembers', result.members)
       })
