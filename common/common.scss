@@ -86,6 +86,8 @@ section.landing {
 
   .home-profiles {
     display: flex;
+    flex-flow: wrap;
+    justify-content: space-between;
   }
 
   .home-profile {
@@ -93,6 +95,8 @@ section.landing {
     border: 1px solid $primary;
     padding: 10px;
     border-radius: 8px;
+    margin: 0 0 20px 0;
+    width: calc(33.33% - 35px);
 
     .details {
       margin-left: 10px;
@@ -102,6 +106,12 @@ section.landing {
       }
       
       .bio {
+        color: $primary;
+        max-width: 100%;
+        width: 280px;
+        height: 100px;
+        overflow: hidden;
+        
         * {
           margin: 0;
         }
